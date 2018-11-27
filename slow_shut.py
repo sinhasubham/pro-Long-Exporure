@@ -3,6 +3,17 @@ import cv2
 import time
 
 
+def blender(curr , prev):
+    height, width,depth = curr.shape
+    x=0.5  #change value of x to change the weights of previous and current frame
+    for i in range(0, height):
+         for j in range(0, width):
+             for k in range(0,depth):
+                 curr[i,j,k]=(x*curr[i,j,k]) + ((1-x)* prev[i,j,k])
+    return curr
+                 
+
+
 def longex(curr , prev):
     height, width,depth = curr.shape
     for i in range(0, height):
@@ -28,7 +39,7 @@ while (ret):
       
       image_np=cv2.resize((image_np),(800,600))
       
-      image_np=longex(image_np,previous)
+      image_np=longex(image_np,previous)   #change longex to blender for blending effect
       #image_np=cv2.medianBlur(image_np,1)
       
       previous=image_np
