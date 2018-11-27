@@ -18,8 +18,8 @@ cap = cv2.VideoCapture(0) #replace 0 with location of video
 ret,previous = cap.read()
 previous=cv2.resize((previous),(800,600))
 image_np=previous
+out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (800,600))
 
-count=1
 while (ret):
       ret,image_np = cap.read()
       if(not ret):
@@ -32,18 +32,18 @@ while (ret):
       #image_np=cv2.medianBlur(image_np,1)
       
       previous=image_np
-      
+      out.write(image_np)
       cv2.imshow('image',image_np)
       if cv2.waitKey(1) & 0xFF == ord('q'):
             cv2.imwrite('img.PNG',image_np)
             cap.release()
-            
+            out.release()
             cv2.destroyAllWindows()
             break
         
 cv2.destroyAllWindows()
 cv2.imwrite('img.PNG',image_np)
-
+out.release()
 cap.release()
       
       
