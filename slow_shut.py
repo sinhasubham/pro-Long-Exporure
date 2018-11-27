@@ -31,10 +31,18 @@ previous=cv2.resize((previous),(800,600))
 image_np=previous
 out = cv2.VideoWriter('outpy.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 10, (800,600))
 
+count=1
 while (ret):
       ret,image_np = cap.read()
       if(not ret):
           continue
+      
+      
+      count+=1
+      if count<2:    # increase the value for a discrete effect 
+          continue
+      count=1
+      
       
       
       image_np=cv2.resize((image_np),(800,600))
